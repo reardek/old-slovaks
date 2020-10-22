@@ -1,11 +1,22 @@
-import React from 'react';
-import CssBaseline from '@material-ui/core/CssBaseline'
+import React from "react";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import AppBar from "./containers/AppBar";
 
 function App() {
+  //const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+
+  const theme = createMuiTheme({
+    palette: {
+      type: "dark",
+    },
+  });
+
   return (
-    <div className="App">
+    <ThemeProvider theme={theme}>
       <CssBaseline />
-    </div>
+      <AppBar />
+    </ThemeProvider>
   );
 }
 
