@@ -210,6 +210,9 @@ export default function PersistentDrawerLeft() {
                 Nulla posuere sollicitudin aliquam ultrices sagittis orci a.
               </Typography>
             </Route>
+            <Route path="/question1">
+              <Typography paragraph>To jest pytanie</Typography>
+            </Route>
           </Switch>
         </main>
       </Router>
