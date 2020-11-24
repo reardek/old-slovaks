@@ -30,7 +30,9 @@ import ListItemText from "@material-ui/core/ListItemText";
 import HelpOutlineIcon from "@material-ui/icons/HelpOutline";
 import EmojiEmotionsIcon from "@material-ui/icons/EmojiEmotions";
 import QuestionTab from "./QuestionsTab";
-
+import { Button } from "@material-ui/core";
+import { useDispatch } from "react-redux";
+import { increaseScore } from "./playerCard/playersSlice";
 const drawerWidth = 180;
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -101,6 +103,8 @@ export default function PersistentDrawerLeft() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
+  const dispatch = useDispatch();
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -108,6 +112,8 @@ export default function PersistentDrawerLeft() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const increase = () => dispatch(increaseScore());
 
   return (
     <div className={classes.root}>
@@ -194,6 +200,7 @@ export default function PersistentDrawerLeft() {
               <QuestionTab></QuestionTab>
             </Route>
             <Route path="/feedback">
+              <Button onClick={increase}>Increase</Button>
               <Typography paragraph>
                 Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
                 ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
