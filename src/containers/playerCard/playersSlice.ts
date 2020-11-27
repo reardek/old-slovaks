@@ -2,13 +2,14 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../store";
 
 export interface IPlayer {
+  id: number;
   name: string;
   score: number;
 }
 
 const initialState: Array<IPlayer> = [
-  { name: "Zdzichu", score: 0 },
-  { name: "Fabianek", score: 5 },
+  { id: 1, name: "Zdzichu", score: 0 },
+  { id: 2, name: "Fabianek", score: 5 },
 ];
 
 const playersSlice = createSlice({
@@ -19,11 +20,11 @@ const playersSlice = createSlice({
       state.push(action.payload);
     },
     increaseScore(state, action: PayloadAction<IPlayer>) {
-      const player = state.find((p) => p.name === action.payload.name);
+      const player = state.find((p) => p.id === action.payload.id);
       if (player) player.score++;
     },
     decreaseScore(state, action: PayloadAction<IPlayer>) {
-      const player = state.find((p) => p.name === action.payload.name);
+      const player = state.find((p) => p.id === action.payload.id);
       if (player) player.score--;
     },
   },

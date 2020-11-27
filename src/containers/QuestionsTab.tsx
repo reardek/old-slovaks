@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
-import Card from "@material-ui/core/Card";
 import { Button, Grid } from "@material-ui/core";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import CancelOutlinedIcon from "@material-ui/icons/CancelOutlined";
@@ -21,6 +20,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.text.primary,
+    margin: theme.spacing(1),
   },
 }));
 
@@ -29,9 +29,9 @@ export default function QuestionsTab() {
 
   return (
     <div className={classes.root}>
-      <Card className={classes.paper}>
+      <Paper className={classes.paper}>
         <PlayerList />
-      </Card>
+      </Paper>
 
       <Grid container spacing={3}>
         <Grid item xs>
