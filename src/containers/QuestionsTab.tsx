@@ -9,7 +9,7 @@ import CancelOutlinedIcon from "@material-ui/icons/CancelOutlined";
 import HelpOutlineRoundedIcon from "@material-ui/icons/HelpOutlineRounded";
 import green from "@material-ui/core/colors/green";
 import red from "@material-ui/core/colors/red";
-
+import PlayersStats from "./playerCard/playersStats";
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     flexGrow: 1,
@@ -92,9 +92,7 @@ export default function QuestionsTab() {
         </Grid>
         <Grid item xs>
           <Paper className={classes.paper}>
-            <Typography variant="h4" gutterBottom color="textPrimary">
-              Wielcy pisarze niemieccy
-            </Typography>
+            <PlayersStats></PlayersStats>
             <Button variant="contained">xs</Button>
           </Paper>
         </Grid>

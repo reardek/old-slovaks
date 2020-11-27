@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { RootState } from "../../store";
 
 interface Player {
   name: string;
@@ -21,5 +22,6 @@ const playersSlice = createSlice({
   },
 });
 
+export const selectScore = (state: RootState) => state.players;
 export const { addPlayer, increaseScore } = playersSlice.actions;
 export default playersSlice.reducer;
