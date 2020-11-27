@@ -1,10 +1,10 @@
 import React from "react";
 import { Paper, Typography } from "@material-ui/core";
 import { useSelector } from "react-redux";
-import { selectScore } from "./playersSlice";
+import { selectPlayers } from "./playersSlice";
 
 export default function PlayersStats() {
-  const players = useSelector(selectScore);
+  const players = useSelector(selectPlayers);
   const score = players.find((p) => p.name === "Zdzichu");
 
   return (

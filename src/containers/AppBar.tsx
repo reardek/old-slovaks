@@ -113,8 +113,6 @@ export default function PersistentDrawerLeft() {
     setOpen(false);
   };
 
-  const increase = () => dispatch(increaseScore());
-
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -200,7 +198,7 @@ export default function PersistentDrawerLeft() {
               <QuestionTab></QuestionTab>
             </Route>
             <Route path="/feedback">
-              <Button onClick={increase}>Increase</Button>
+              <Button>Increase</Button>
               <Typography paragraph>
                 Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
                 ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
