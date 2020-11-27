@@ -24,35 +24,37 @@ export default function Player() {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const onIncreaseScore = (player: IPlayer) => dispatch(increaseScore(player));
-  const onDecreaseScore = (player: IPlayer) => dispatch(decreaseScore(player));
-
-  const renderedPlayers = players.map((player) => (
-    <Grid item xs key={player.name}>
-      <Paper>
-        <Typography className={classes.player}>{player.name}</Typography>
-        <Grid container alignItems="center">
-          <Grid item xs={4}>
-            <IconButton>
-              <RemoveCircleOutlineOutlinedIcon
-                onClick={() => onDecreaseScore(player)}
-                fontSize="large"
-              />
-            </IconButton>
+  const renderedPlayers = players.map((player) => {
+    const onIncreaseScore = (player: IPlayer) =>
+      dispatch(increaseScore(player));
+    const onDecreaseScore = (player: IPlayer) =>
+      dispatch(decreaseScore(player));
+    return (
+      <Grid item xs key={player.name}>
+        <Paper>
+          <Typography className={classes.player}>{player.name}</Typography>
+          <Grid container alignItems="center">
+            <Grid item xs={4}>
+              <IconButton>
+                <RemoveCircleOutlineOutlinedIcon
+                  onClick={() => onDecreaseScore(player)}
+                  fontSize="large"
+                />
+              </IconButton>
+            </Grid>
+            <Grid item xs={4}>
+              <Typography className={classes.score}>{player.score}</Typography>
+            </Grid>
+            <Grid item xs={4}>
+              <IconButton onClick={() => onIncreaseScore(player)}>
+                <AddCircleOutlineOutlinedIcon fontSize="large" />
+              </IconButton>
+            </Grid>
           </Grid>
-          <Grid item xs={4}>
-            <Typography className={classes.score}>{player.score}</Typography>
-          </Grid>
-
-          <Grid item xs={4}>
-            <IconButton onClick={() => onIncreaseScore(player)}>
-              <AddCircleOutlineOutlinedIcon fontSize="large" />
-            </IconButton>
-          </Grid>
-        </Grid>
-      </Paper>
-    </Grid>
-  ));
+        </Paper>
+      </Grid>
+    );
+  });
   return (
     <Grid container spacing={3}>
       {renderedPlayers}

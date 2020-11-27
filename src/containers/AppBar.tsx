@@ -31,8 +31,7 @@ import HelpOutlineIcon from "@material-ui/icons/HelpOutline";
 import EmojiEmotionsIcon from "@material-ui/icons/EmojiEmotions";
 import QuestionTab from "./QuestionsTab";
 import { Button } from "@material-ui/core";
-import { useDispatch } from "react-redux";
-import { increaseScore } from "./playerCard/playersSlice";
+
 const drawerWidth = 180;
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -102,8 +101,6 @@ export default function PersistentDrawerLeft() {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-
-  const dispatch = useDispatch();
 
   const handleDrawerOpen = () => {
     setOpen(true);
