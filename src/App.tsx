@@ -9,6 +9,9 @@ function App() {
   const theme = createMuiTheme({
     palette: {
       type: "dark",
+      primary: {
+        main: "#90caf9",
+      },
     },
   });
 

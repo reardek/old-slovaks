@@ -17,7 +17,8 @@ const playersSlice = createSlice({
   initialState,
   reducers: {
     addPlayer(state, action) {
-      state.push(action.payload);
+      const player = state.find((p) => p.id === action.payload);
+      if (player) state.push(player);
     },
     increaseScore(state, action: PayloadAction<IPlayer>) {
       const player = state.find((p) => p.id === action.payload.id);

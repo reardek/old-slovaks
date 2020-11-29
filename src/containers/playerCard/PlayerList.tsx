@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { increaseScore, decreaseScore, selectPlayers } from "./playersSlice";
 import { makeStyles, Theme } from "@material-ui/core";
 import { IPlayer } from "./playersSlice";
-
+import AddPlayer from "./AddPlayer";
 const useStyles = makeStyles((theme: Theme) => ({
   player: {
     fontSize: "4em",
@@ -59,9 +59,11 @@ export default function Player() {
       </Grid>
     );
   });
+
   return (
-    <Grid container spacing={3}>
+    <Grid container spacing={3} alignItems="center">
       {renderedPlayers}
+      <AddPlayer />
     </Grid>
   );
 }
