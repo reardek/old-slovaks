@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 export default function AddPlayer() {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const [addPlayerState, setAddPlayerState] = useState(true);
+  const [addPlayerState, setAddPlayerState] = useState(false);
   const [chosenPlayer, setChosenPlayer] = useState("");
 
   const players = useSelector(selectPlayers);
