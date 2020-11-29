@@ -47,7 +47,7 @@ export default function AddPlayer() {
     setChosenPlayer(event.target.value as string);
   };
 
-  const handleAddPlayer = (player: string) => {
+  const handleAddPlayer = () => {
     dispatch(addPlayer(chosenPlayer));
     setAddPlayerState(false);
     setChosenPlayer("");
@@ -78,9 +78,7 @@ export default function AddPlayer() {
             ))}
           </Select>
         </FormControl>
-        <Button onClick={() => handleAddPlayer(chosenPlayer)}>
-          Dodaj gracza
-        </Button>
+        <Button onClick={() => handleAddPlayer()}>Dodaj gracza</Button>
       </Paper>
     </Grid>
   );
