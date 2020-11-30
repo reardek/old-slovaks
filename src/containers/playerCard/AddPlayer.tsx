@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Grid from "@material-ui/core/Grid";
 import {
+  Box,
   Button,
   FormControl,
   InputLabel,
@@ -25,6 +26,8 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   paper: {
     backgroundColor: grey[700],
+    alignItems: "center",
+    justifyItems: "center",
   },
   icon: {
     fontSize: "5em",
@@ -32,6 +35,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   formControl: {
     margin: theme.spacing(1),
     minWidth: 120,
+  },
+  button: {
+    margin: theme.spacing(1),
+    verticalAlign: "buttom",
   },
 }));
 
@@ -54,7 +61,7 @@ export default function AddPlayer() {
   };
 
   const emptyPlayer = (
-    <Grid item xs>
+    <Grid item xs key="emptyPlayer">
       <Button onClick={() => setAddPlayerState(true)}>
         <AddCircleOutlineOutlinedIcon className={classes.icon} />
       </Button>
@@ -62,23 +69,36 @@ export default function AddPlayer() {
   );
 
   const formAddPlayer = (
-    <Grid item xs key="addPlayer" alignItems="center">
+    <Grid item xs key="addPlayer">
       <Paper className={classes.paper}>
         <Typography className={classes.player}>Test</Typography>
-        <FormControl className={classes.formControl}>
-          <InputLabel id="players-availibility-label">Players</InputLabel>
-          <Select
-            labelId="players-availibility-label"
-            id="players-availibility"
-            value={chosenPlayer}
-            onChange={handleChange}
-          >
+        <Box alignItems="center" justifyContent="center" display="flex">
+          <FormControl className={classes.formControl}>
+            <InputLabel id="players-availibility-select-outlined-label">
+              Players
+            </InputLabel>
+            <Select
+              labelId="players-availibility-select-outlined-label"
+              id="players-availibility-select-outlined-label"
+              value={chosenPlayer}
+              onChange={handleChange}
+              label="Players"
+            >
+              {players.map((player) => (
+                <MenuItem key={player.id} value={player.id}>
+                  {player.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <Button onClick={() => handleAddPlayer()} variant="contained">
             {players.map((player) => (
               <MenuItem value={player.id}>{player.name}</MenuItem>
             ))}
-          </Select>
-        </FormControl>
-        <Button onClick={() => handleAddPlayer()}>Dodaj gracza</Button>
+            <Button onClick={() => handleAddPlayer()}>Dodaj gracza</Button>
+            Dodaj gracza
+          </Button>
+        </Box>
       </Paper>
     </Grid>
   );

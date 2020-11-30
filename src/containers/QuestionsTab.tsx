@@ -41,9 +41,11 @@ export default function QuestionsTab() {
             </Typography>
             <Grid container>
               <Grid item xs>
-                <Link to="/question1" component={Button}>
-                  <CheckCircleOutlineIcon style={{ color: green[500] }} />
-                </Link>
+                <Button>
+                  <Link to="/question1">
+                    <CheckCircleOutlineIcon style={{ color: green[500] }} />
+                  </Link>
+                </Button>
               </Grid>
               <Grid item xs>
                 <Button>
