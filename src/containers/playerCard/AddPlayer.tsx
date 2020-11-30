@@ -91,13 +91,7 @@ export default function AddPlayer() {
               ))}
             </Select>
           </FormControl>
-          <Button onClick={() => handleAddPlayer()} variant="contained">
-            {players.map((player) => (
-              <MenuItem value={player.id}>{player.name}</MenuItem>
-            ))}
-            <Button onClick={() => handleAddPlayer()}>Dodaj gracza</Button>
-            Dodaj gracza
-          </Button>
+          <Button onClick={() => handleAddPlayer()}>Dodaj gracza</Button>
         </Box>
       </Paper>
     </Grid>
