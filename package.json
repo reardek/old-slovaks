@@ -4,13 +4,19 @@
   "description": "Quiz app game",
   "main": "index.ts",
   "scripts": {
-    "start": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "node start-server.js",
-    "client": "node start-client.js"
+    "start": "concurrently \"yarn server\" \"yarn client\"",
+    "server": "ts-node start-server.ts",
+    "client": "ts-node start-client.ts"
   },
   "author": "reardek",
+  "license": "MIT",
+  "private": true,
   "homepage": "https://github.com/reardek/old-slovaks#readme",
   "devDependencies": {
-    "concurrently": "^6.0.0"
+    "@types/node": "^14.14.31",
+    "concurrently": "^6.0.0",
+    "ts-node": "^9.1.1",
+    "tsc": "^1.20150623.0",
+    "typescript": "^4.2.3"
   }
 }
