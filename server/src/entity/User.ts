@@ -6,13 +6,13 @@ import {
   JoinTable,
   Unique,
 } from "typeorm";
-import {IsEmail, IsNotEmpty} from 'class-validator'
+import { IsEmail, IsNotEmpty } from "class-validator";
 
-@Entity({name: 'User'})
+@Entity()
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
-  @Column({unique: true})
+  @Column({ unique: true })
   @IsEmail()
   @IsNotEmpty()
   email: string;

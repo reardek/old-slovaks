@@ -1,0 +1,39 @@
+version: "3"
+services:
+  api:
+    build: .
+    restart: always
+    ports:
+      - "3000:3000"
+    depends_on: 
+      - postgres
+
+  postgres:
+    image: postgres
+    restart: always
+    environment: 
+      POSTGRES_USER: ${OLD_SLOVAK_USERNAME}
+      POSTGRES_PASSWORD: ${OLD_SLOVAK_PASSWORD}
+      POSTGRES_DB: ${OLD_SLOVAK_DATABASE}
+    ports: 
+      - "5432:5432"
+    volumes: 
+      - "pg-old-slovaks-dev:/var/lib/postgresql/data"
+  
+  pg-admin:
+    image: dpage/pgadmin4
+    restart: always
+    depends_on: 
+      - postgres
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PG_ADMIN_USER}
+      PGADMIN_DEFAULT_PASSWORD: ${PG_ADMIN_PASSWORD}
+    volumes: 
+      - "pgAdmin-data:/var/lib/pgadmin"
+    ports: 
+      - "8080:80"
+
+
+volumes:
+  pg-old-slovaks-dev:
+  pgAdmin-data:
