@@ -1,12 +1,8 @@
 import { ConnectionOptions } from "typeorm";
+import dotenv from "dotenv";
 
-let HOST: string;
-
-if (process.env.NODE_ENV === "dev") {
-  HOST = "localhost";
-} else {
-  HOST = "postgres";
-}
+dotenv.config();
+let HOST: string = "postgres";
 
 const config: ConnectionOptions = {
   type: "postgres",
@@ -16,11 +12,13 @@ const config: ConnectionOptions = {
   password: process.env.OLD_SLOVAK_PASSWORD,
   database: process.env.OLD_SLOVAK_DATABASE,
   connectTimeoutMS: 5000,
-  entities: ["entity/*.ts"],
+  entities: [__dirname + "/entity/*.ts"],
   migrations: ["migration/*.ts"],
-  synchronize: process.env.NODE_ENV === "dev" || process.env.NODE_ENV === "test",
+  synchronize:
+    process.env.NODE_ENV === "dev" || process.env.NODE_ENV === "test",
   cli: {
     migrationsDir: "migration",
+    entitiesDir: "src/entity",
   },
 };
 

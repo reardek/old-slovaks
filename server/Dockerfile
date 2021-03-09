@@ -2,10 +2,8 @@ FROM node:lts
 
 WORKDIR /app
 
-COPY tsconfig.json package.json ./
+COPY tsconfig.json package.json .env ./
 
 RUN npm i
-
-COPY ./src ./src
 
 CMD ["npm", "run", "start"]

@@ -6,10 +6,12 @@ import {
 } from "typeorm";
 import {
   IsBase64,
+  IsDataURI,
   IsDateString,
   IsEmail,
   IsFQDN,
   IsNotEmpty,
+  IsOptional,
   IsString,
 } from "class-validator";
 
@@ -24,27 +26,34 @@ export class User {
   email: string;
 
   @Column({ length: 60 })
-  @IsBase64()
   @IsNotEmpty()
   password: string;
 
-  @Column()
+  @Column({ nullable: true })
   @IsString()
   nickname: string;
 
-  @Column()
+  @Column({ nullable: true })
   @IsString()
   firstName: string;
 
-  @Column()
+  @Column({ nullable: true })
   @IsString()
   lastName: string;
 
-  @Column()
+  @Column({ nullable: true })
+  @IsOptional()
   @IsFQDN()
   avatar: string;
 
   @CreateDateColumn()
-  @IsDateString()
   created_at: string;
+
+  constructor(email: string, password: string) {
+    this.email = email;
+    this.password = password;
+    this.nickname = "";
+    this.firstName = "";
+    this.lastName = "";
+  }
 }
