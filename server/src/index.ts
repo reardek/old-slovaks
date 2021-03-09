@@ -4,11 +4,14 @@ import config from "./ormconfig";
 import dotenv from "dotenv";
 import { User } from "./entity/User";
 import { validate, validateOrReject } from "class-validator";
+import userController from "./controller/UserController"
 
 dotenv.config();
 
 const app = express();
+const router = express.Router()
 app.use(express.json());
+app.use("/users", userController)
 createConnection(config).then((connection) => {
   app.get(
     "/test",
@@ -16,7 +19,7 @@ createConnection(config).then((connection) => {
       return response.send({ ok: "fine" });
     }
   );
-  app.post(
+  router.post(
     "/user",
     async (request: Request, response: Response, next: NextFunction) => {
       const body = request.body;
