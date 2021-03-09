@@ -2,18 +2,49 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  ManyToMany,
-  JoinTable,
-  Unique,
+  CreateDateColumn,
 } from "typeorm";
-import { IsEmail, IsNotEmpty } from "class-validator";
+import {
+  IsBase64,
+  IsDateString,
+  IsEmail,
+  IsFQDN,
+  IsNotEmpty,
+  IsString,
+} from "class-validator";
 
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
+
   @Column({ unique: true })
   @IsEmail()
   @IsNotEmpty()
   email: string;
+
+  @Column({ length: 60 })
+  @IsBase64()
+  @IsNotEmpty()
+  password: string;
+
+  @Column()
+  @IsString()
+  nickname: string;
+
+  @Column()
+  @IsString()
+  firstName: string;
+
+  @Column()
+  @IsString()
+  lastName: string;
+
+  @Column()
+  @IsFQDN()
+  avatar: string;
+
+  @CreateDateColumn()
+  @IsDateString()
+  created_at: string;
 }
