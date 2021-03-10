@@ -4,13 +4,13 @@ import { getRepository } from "typeorm";
 import { User } from "../entity/User";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { privateKey } from "../index";
+import { privateKey, publicKey } from "../index";
 import { IUser } from "src/entity/User.dto";
 
 const userRouter = Router();
 
 userRouter.post(
-  "/register",
+  "/signup",
   async (request: Request, response: Response, next: NextFunction) => {
     const { password } = request.body;
     const hashPassword = await bcrypt.hash(password, 10);
@@ -33,6 +33,20 @@ userRouter.post(
       { expiresIn: "1h", algorithm: "RS256" }
     );
     return response.send(userJWT);
+  }
+);
+
+userRouter.post(
+  "/login",
+  async (request: Request, response: Response, next: NextFunction) => {
+      const { token } = request.body;
+      try {
+          const verify = jwt.verify(token, privateKey, { algorithms: ["RS256"] });
+          return response.send(verify);
+      }
+      catch (err) {
+          return response.send(err)
+      } 
   }
 );
 

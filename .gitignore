@@ -5,7 +5,6 @@
 client/coverage
 client/build
 
-server/privateKey.key
-server/privateKey.key.pub
+server/*.pem
 
 **/.env

@@ -6,8 +6,9 @@ import fs from "fs";
 import userController from "./controller/UserController";
 import "reflect-metadata";
 
-const privateKey = fs.readFileSync(__dirname + "/../privateKey.key");
-export { privateKey };
+const privateKey = fs.readFileSync(__dirname + "/../privateKey.pem");
+const publicKey = fs.readFileSync(__dirname + "/../publicKey.pem");
+export { privateKey, publicKey };
 const app = express();
 app.use(express.json());
 app.use("/users", userController);
