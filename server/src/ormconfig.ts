@@ -6,7 +6,7 @@ let HOST: string = "postgres";
 
 const config: ConnectionOptions = {
   type: "postgres",
-  host: HOST,
+  host: process.env.NODE_ENV !== 'dev' ? "postgres" : "localhost",
   port: 5432,
   username: process.env.OLD_SLOVAK_USERNAME,
   password: process.env.OLD_SLOVAK_PASSWORD,

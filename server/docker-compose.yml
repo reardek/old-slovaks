@@ -2,7 +2,7 @@ version: "3"
 services:
   api:
     build: .
-    restart: always
+    restart: unless-stopped
     ports:
       - "3000:3000"
     depends_on: 
@@ -12,7 +12,7 @@ services:
 
   postgres:
     image: postgres
-    restart: always
+    restart: unless-stopped
     environment: 
       POSTGRES_USER: ${OLD_SLOVAK_USERNAME}
       POSTGRES_PASSWORD: ${OLD_SLOVAK_PASSWORD}

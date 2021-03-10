@@ -3,18 +3,19 @@ import {
   PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
+  BeforeInsert,
+  BeforeUpdate,
 } from "typeorm";
 import {
-  IsBase64,
-  IsDataURI,
-  IsDateString,
   IsEmail,
   IsFQDN,
   IsNotEmpty,
   IsOptional,
   IsString,
+  MaxLength,
+  MinLength,
+  validateOrReject,
 } from "class-validator";
-
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
@@ -29,31 +30,31 @@ export class User {
   @IsNotEmpty()
   password: string;
 
-  @Column({ nullable: true })
+  @Column({ length: 20 })
+  @MinLength(3)
+  @MaxLength(20)
   @IsString()
   nickname: string;
 
-  @Column({ nullable: true })
+  @Column()
   @IsString()
   firstName: string;
 
-  @Column({ nullable: true })
+  @Column()
   @IsString()
   lastName: string;
 
   @Column({ nullable: true })
   @IsOptional()
   @IsFQDN()
-  avatar: string;
+  avatar?: string;
 
   @CreateDateColumn()
   created_at: string;
 
-  constructor(email: string, password: string) {
-    this.email = email;
-    this.password = password;
-    this.nickname = "";
-    this.firstName = "";
-    this.lastName = "";
+  @BeforeInsert()
+  @BeforeUpdate()
+  async validate() {
+    await validateOrReject(this);
   }
 }

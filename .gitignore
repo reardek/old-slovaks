@@ -5,6 +5,7 @@
 client/coverage
 client/build
 
-server/migration
+server/privateKey.key
+server/privateKey.key.pub
 
 **/.env
