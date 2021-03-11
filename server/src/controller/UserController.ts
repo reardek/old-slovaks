@@ -1,11 +1,11 @@
-import { validateOrReject } from "class-validator";
-import { Request, Response, NextFunction, Router } from "express";
+import { Request, Response, NextFunction, Router, request } from "express";
 import { getRepository } from "typeorm";
 import { User } from "../entity/User";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { privateKey, publicKey } from "../index";
 import { IUser } from "src/entity/User.dto";
+import { verifyJWT } from "../middleware";
 
 const userRouter = Router();
 
@@ -36,17 +36,34 @@ userRouter.post(
   }
 );
 
-userRouter.post(
+userRouter.get(
   "/login",
   async (request: Request, response: Response, next: NextFunction) => {
-      const { token } = request.body;
+    const userRepository = getRepository(User);
+
+    const { email, password } = request.body;
+    const findUser = await userRepository.findOne({ email });
+    if (await bcrypt.compare(password, findUser.password)) {
       try {
-          const verify = jwt.verify(token, privateKey, { algorithms: ["RS256"] });
-          return response.send(verify);
+        const token = jwt.sign(
+          { user: email, nickname: findUser.nickname },
+          privateKey,
+          { expiresIn: "1h", algorithm: "RS256" }
+        );
+        return response.send(token);
+      } catch (err) {
+        return response.send(err);
       }
-      catch (err) {
-          return response.send(err)
-      } 
+    }
+    else return response.status(401).send()
+  }
+);
+
+userRouter.get(
+  "/protected",
+  verifyJWT,
+  async (request: Request, response: Response, next: NextFunction) => {
+    return response.send({ ok: "fine" });
   }
 );
 
