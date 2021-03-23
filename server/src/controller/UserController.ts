@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction, Router, request } from "express";
-import { getRepository } from "typeorm";
+import { getRepository, QueryFailedError } from "typeorm";
 import { User } from "../entity/User";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -24,7 +24,9 @@ userRouter.post(
     try {
       await userRepository.save(_user);
     } catch (error) {
-      return response.send(error);
+      if (error instanceof QueryFailedError) {
+        return response.status(303).send({error: "Email already exists"})
+      }
     }
 
     const userJWT = jwt.sign(
@@ -32,7 +34,11 @@ userRouter.post(
       privateKey,
       { expiresIn: "1h", algorithm: "RS256" }
     );
-    return response.send(userJWT);
+    response.cookie("token", userJWT, {
+      maxAge: 60 * 60 * 1000,
+      httpOnly: true,
+    });
+    response.send();
   }
 );
 
@@ -54,8 +60,7 @@ userRouter.get(
       } catch (err) {
         return response.send(err);
       }
-    }
-    else return response.status(401).send()
+    } else return response.status(401).send();
   }
 );
 

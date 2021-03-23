@@ -9,18 +9,16 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import { Button, Card, IconButton, LinearProgress } from "@material-ui/core";
+import { Button, IconButton } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import {
   BrowserRouter as Router,
   Switch,
   Link,
   Route,
-  useHistory,
   LinkProps,
 } from "react-router-dom";
-import { Field, Form, Formik } from "formik";
-import { TextField } from "formik-material-ui";
+import { RegisterTab } from "./RegisterTab";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -50,11 +48,6 @@ const useStyles = makeStyles((theme: Theme) =>
 const LinkBehavior = React.forwardRef<any, Omit<LinkProps, "to">>(
   (props, ref) => <Link ref={ref} to="/protected" {...props} />
 );
-
-interface Values {
-  email: string;
-  password: string;
-}
 
 export default function PersistentDrawerLeft() {
   const classes = useStyles();
@@ -90,61 +83,7 @@ export default function PersistentDrawerLeft() {
           <div className={classes.toolbar}>
             <Switch>
               <Route path="/protected">
-                <Card className={classes.card}>
-                  <Formik
-                    initialValues={{
-                      email: "",
-                      password: "",
-                    }}
-                    validate={(values) => {
-                      const errors: Partial<Values> = {};
-                      if (!values.email) {
-                        errors.email = "Required";
-                      } else if (
-                        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(
-                          values.email
-                        )
-                      ) {
-                        errors.email = "Invalid email address";
-                      }
-                      return errors;
-                    }}
-                    onSubmit={(values, { setSubmitting }) => {
-                      setTimeout(() => {
-                        setSubmitting(false);
-                        alert(JSON.stringify(values, null, 2));
-                      }, 500);
-                    }}
-                  >
-                    {({ submitForm, isSubmitting }) => (
-                      <Form>
-                        <Field
-                          component={TextField}
-                          name="email"
-                          type="email"
-                          label="Email"
-                        />
-                        <br />
-                        <Field
-                          component={TextField}
-                          type="password"
-                          label="Password"
-                          name="password"
-                        />
-                        {isSubmitting && <LinearProgress />}
-                        <br />
-                        <Button
-                          variant="contained"
-                          color="primary"
-                          disabled={isSubmitting}
-                          onClick={submitForm}
-                        >
-                          Submit
-                        </Button>
-                      </Form>
-                    )}
-                  </Formik>
-                </Card>
+                <RegisterTab />
               </Route>
             </Switch>
           </div>
